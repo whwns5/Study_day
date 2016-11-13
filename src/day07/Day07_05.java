@@ -13,6 +13,6 @@ public class Day07_05 {
 		}
 		
 		
-		System.out.println("테스트");
+		System.out.println("테스트22");
 	}
 }
