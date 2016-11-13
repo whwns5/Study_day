@@ -12,5 +12,7 @@ public class Day07_05 {
 		  System.out.println();
 		}
 		
+		
+		System.out.println("Å×½ºÆ®");
 	}
 }
