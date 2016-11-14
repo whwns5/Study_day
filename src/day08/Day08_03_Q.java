@@ -43,6 +43,7 @@ public class Day08_03_Q {
 				continue;
 			} 
 			
+			
 			randomNum = (int)(Math.random()*3+1);
 			
 			switch (inputNum) {
