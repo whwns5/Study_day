@@ -3,6 +3,8 @@ package day08;
 import java.io.IOException;
 
 /*
+ * 2016_11_4
+ * 
  * tweetv1@naver.com
  * 
  * 제목 : 오전_과제1_조준현

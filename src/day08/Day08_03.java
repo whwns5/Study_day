@@ -1,5 +1,9 @@
 package day08;
-
+/*
+ * 2016_11_14
+ * 
+ * 
+ */
 public class Day08_03 {
 
 	public static void main(String[] args) {
@@ -48,6 +52,8 @@ public class Day08_03 {
 			}
 			System.out.println();
 		}
+		
+		
 	}
 
 }
