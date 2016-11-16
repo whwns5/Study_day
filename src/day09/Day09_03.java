@@ -66,7 +66,7 @@ public class Day09_03 {
 			System.out.print(x[i] + " "); // 10 20 30 40 50 
 		}
 		System.out.println();
-		
+
 		int y[] = x; // x의 heep영역 주소를 복사
 		y[2] = 1004;
 		
