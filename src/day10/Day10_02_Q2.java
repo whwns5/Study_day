@@ -24,7 +24,7 @@ public class Day10_02_Q2 {
 		int count = 0; // 회차 수
 		
 		int gameData[][][] = new int[10][3][3]; // 게임 데이터를 가지고 있는 배열
-												// 0행 배열 -> 사용자 입력 번호 배열 (int inputNum[])
+					// 회차 별 데이터				// 0행 배열 -> 사용자 입력 번호 배열 (int inputNum[])
 												// 1행 배열 -> 컴퓨터 난수 번호 배열 (int comNum[])
 												// 2행 배열 -> 회차 수, 스트라이크 카운트 (int strikeCount), 볼 카운트 (int ballCount)
 		
@@ -124,7 +124,7 @@ public class Day10_02_Q2 {
 			gameData[count][2][0] = ++count; // 회차 수를 데이터에 저장하고 카운터를 증가
 
 			// 결과 출력 모듈
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\nn\n\n\n\n\nn\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 			System.out.println("------------------------------------------------------------------------------------------");
 			for(int i = 0 ; i < count ; i++){ // 카운터 만큼 출력
 					System.out.print(gameData[i][2][0] + " 회차 >>>>>\t\t");
