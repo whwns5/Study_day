@@ -89,17 +89,20 @@ public class Day12_04 {
 	
 	/** 결과 출력 모듈 */
 	public static void resultPrint(String[][] arrNum){
-		
+		System.out.println("--------------------------------------------------------------------------------");
 		System.out.print("정답\t:\t");
 		for(int i = 0 ; i < arrNum[0].length ; i++){
 			System.out.print(arrNum[0][i] + "\t");
 		}
-		System.out.println();
 		
+		System.out.println();
+		System.out.println("--------------------------------------------------------------------------------");
 		System.out.print("입력한 답:\t");
 		for(int i = 0 ; i < arrNum[1].length ; i++){
 			System.out.print(arrNum[1][i] + "\t");
 		}
+		System.out.println();
+		System.out.println("--------------------------------------------------------------------------------");
 	}
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
