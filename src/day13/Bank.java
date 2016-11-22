@@ -4,7 +4,7 @@ public class Bank {
 	
 	 String accName; // 예금주
 	 String accNum; // 계좌번호
-	 int accMoney; // 잔액 				// 멤버 변수
+	 private int accMoney; // 잔액 				// 멤버 변수
 	 static double accInterestRate = 0.07; 	// 클래스 변수 (static 변수) 
 	
 	public Bank(String accName, String accNum, int accMoney, double accInterestRate){ 
@@ -19,6 +19,16 @@ public class Bank {
 		this.accNum = accNum;
 		this.accMoney = 0;
 		//this.accInterestRate = 0.07;
+	}
+	
+	//기능
+	//setter -- 반환타입 x, 매개변수 o
+	public void setAccMoney(int accMoney){
+		this.accMoney = accMoney;
+	}
+	//getter
+	public int getAccMoney(){
+		return this.accMoney;
 	}
 	
 	public void bSave(int accMoney){  // 입금
