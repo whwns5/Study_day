@@ -9,6 +9,11 @@ package day14;
  *  상속의 장점
  *   1. 개발시간을 단축
  *   2. 코드의 재활용
+ *   
+ *  상속 형식
+ *   class 자식 클래스 extends 부모클래스{
+ *   	...
+ *   }
  */
 public class Day14_03 {
 

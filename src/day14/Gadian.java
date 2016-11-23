@@ -10,10 +10,11 @@ public class Gadian extends BaseCar{
 	}
 
 	public Gadian(String carName, int maxSpeed, String item) {
-		// super(carName, maxSpeed);
-		this.carName = carName;
-		this.maxSpeed = maxSpeed;
+		super(carName, maxSpeed);
+		//this.carName = carName;
+		//this.maxSpeed = maxSpeed;
 		this.item = item;
+		
 
 		System.out.println("가디언 생성2");
 	}
