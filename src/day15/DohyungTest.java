@@ -83,7 +83,7 @@ public class DohyungTest {
 		Dohyung d4 = new Circle2();
 	
 		Circle d5 = (Circle) d4; // 레퍼런스 이기 때문에 d5와 d4는 같은 객체를 의미한다. 주소가 같다.
-
+		d5.area(i);
 		
 	//	Circle2 d6 = (Circle2) d4;
 		
