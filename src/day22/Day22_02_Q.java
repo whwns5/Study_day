@@ -36,7 +36,7 @@ public class Day22_02_Q extends Frame{
 		
 		// framePanel
 		Panel f_pNorth = new Panel(new GridLayout(2, 2 , 0, 10));
-		Panel f_pCenter = new Panel(new BorderLayout(10, 10));
+		Panel f_pCenter = new Panel(new BorderLayout());
 		
 		f_pNorth.setBackground(Color.RED);
 		f_pCenter.setBackground(Color.PINK);
@@ -83,6 +83,12 @@ public class Day22_02_Q extends Frame{
 		this.setVisible(true);
 	}
 	
+	@Override
+	public Insets insets() {
+		// TODO Auto-generated method stub
+		Insets i = new Insets(45, 20, 20, 20);
+		return i;
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
