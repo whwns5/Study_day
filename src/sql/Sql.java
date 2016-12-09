@@ -131,7 +131,143 @@ package sql;
  *  SQL > SELECT * FROM emp ORDER BY sal DESC;
  *  ex) 부서번호로 오름차순 정렬하고 급여순으로 내림차순 정렬한 사원의 정보를 출력.
  *  SQL > SELECT * FROM emp ORDER BY deptno ASC, sal DESC;
+ *  
+ * DUAL 테이블
+ *  - DAUL 테이블은 SYS 사용자가 소유하는 것으로 모든 사용자가 사용할 수 있다.
+ *  - DAUL 테이블은 DUMMY라는 단 하나의 컬럼을로 구성되어 있습니다. 이 컬럼에는
+ *    길이가 1인 문자 한 개를 저장할 수 있다.
+ * 
+ * ROUND (반올림) 함수
+ *  [형식] ROUND(데이터, 반올림위치)
+ *  ex) SELECT ROUND(45.293, 2) FROM dual; -> 45.29
+ *  ex) SELECT ROUND(45.277, 2) FROM dual; -> 45.28
+ *  ex) SELECT ROUND(45.293, 0) FROM dual; -> 45
+ *  ex) SELECT ROUND(45.293, -1) FROM dual; -> 50
+ *  
+ * TRUNC (버림) 함수
+ *  [형식] TRUNC(데이터, 버림위치)
+ *  ex) SELECT TRUNC(45.196, 2) FROM dual; -> 45.19
+ *  
+ * MOD (나머지 구하는) 함수
+ *  [형식] MOD(데이터, 나눌값)
+ *  ex) 사원 테이블에서 사원번호, 사원이름, 급여를 100으로 나눈 나머지를 출력.
+ *  SQL > SELECT empno, ename, sal, MOD(sal, 100) FROM emp;
+ *  ex) 직원들 중에서 사번이 홀수인 사람만 검색
+ *  SQL > SELECT * FROM emp WHERE MOD(empno, 2) = 1;
+ *  
+ * 문자 처리 함수
+ *  UPPER : 대문자로 변환
+ *   ex) SELECT UPPER('Welcome to Java') FROM dual; -> WELCOME TO JAVA
+ *  LOWER : 소문자로 변환
+ *   ex) SELECT LOWER('Welcome to Jave') FROM dual; -> welcome to java
+ *  INITCAP : 이니셜만 대문자로 변환
+ *   ex) SELECT INITCAP('welcome to java') FROM dual; -> Welcome To Java
+ *  LENGTH : 문자열의 길이를 반환
+ *   ex) SELECT LENGTH('Welcome to Java') FROM dual; -> 15
+ *  INSTR : 특정문자가 출현하는 위치를 반환
+ *   ex) 처음 'o' 출현하는 인덱스를 반환
+ *   SQL > SELECT INSTR('Welcome to Java', 'o') FROM dual -> 5
+ *   ex) 6번째 문자열부터 시작하여 처음 'o' 문자열이 출현하는 위치를 반환
+ *   SQL > SELECT INSTR('Welcome to Java', 'o', 6, 1) FROM dual -> 10
+ *   ex) 3번재 문자열부터 시작하여 두번째로 'o' 문자열이 출현하는 위치를 반환
+ *   SQL > SELECT INSETR('Welcome to Java', 'o', 3, 2) FROM dual -> 10
+ *   ex) 사원의 이름중에서 A 문자가 몇번째에 출몰하는지 가상컬럼으로 출력
+ *   SQL > SELECT ename, INSTR(ename, 'A') FROM emp;
+ *  SUBSTR : 문자의 일부분을 반환
+ *   ex) 해당 문자열에서 4번째 문자 부터 4개의 문자열을 반환
+ *   SQL > SELECT SUBSTR('Welcome to Java', 4, 4) -> come
+ *   ex) 사원의 이름과 사원의 입사년도만을 출력
+ *   SQL > SELECT SUBSTR(hiredate, 1, 4) FROM emp;
+ *  LPAD : 오른쪽 정렬 후 왼쪽에 생긴 빈 공백에 특정 문자를 채운다.
+ *   ex) 'javadori' 문자열의 왼쪽에 # 문자로 20개를 채워 출력
+ *   SQL > SELECT LPAD('javadori', 20, '#') FROM dual;
+ *  RPAD : 왼쪽 정렬 후 오른쪽에 생긴 빈 공백에 특정 문자를 채운다.
+ *   ex) 'javadori' 문자열의 오른쪽에 # 문자로 20개를 채워 출력
+ *   SQL > SELECT RPAD('javadori', 20, '#') FROM dual;
+ *  LTRIM : 왼쪽에서 특정 문자를 삭제한다.
+ *   ex) 'aaaaaajavadoriaaaaaaa' 에서 왼쪽에서 'a' 문자를 삭제하여 출력
+ *   SQL > SELECT LTRIM('aaaaaajavadoriaaaaaaa', 'a') FROM dual;
+ *   ex) '     javadori     ' 에서 왼쪽에서 공백을 제거하여 출력
+ *   SQL > SELECT LTRIM('     javadori     ') FROM dual;    
+ *  RTRIM : 오른쪽에서 특정 문자를 삭제한다.
+ *   ex) 'aaaaaajavadoriaaaaaaa' 에서 오른쪽에서 'a' 문자를 삭제하여 출력
+ *   SQL > SELECT RTRIM('aaaaaajavadoriaaaaaaa', 'a') FROM dual;
+ *   ex) '     javadori     ' 에서 오른쪽에서 공백을 제거하여 출력
+ *   SQL > SELECT RTRIM('     javadori     ') FROM dual; 
+ *  TRIM : 양쪽에서 공백을 삭제한다.
+ *   ex)  '     javadori     ' 에서 양쪽의 공백을 제거하여 출력
+ *   SQL > SELECT TRIM('     javadori     ') FROM dual;
+ * 
+ *  실습 예제)
+ *   ex) 이름의 세번째 자리가 R인 사원을 검색하시오.
+ *   SQL > SELECT * FROM emp WHERE SUBSTR(ename, 3, 1) = 'R';
+ *   SQL > SELECT * FROM emp WHERE INSTR(ename, 'R', 3, 1) = 3;
+ *   SQL > SELECT * FROM emp WHERE WHERE ename LIKE '__R%';
  *   
+ *   ex) 이름의 끝 자리가 N으로 끝나는 사원을 검색하시오.
+ *   SQL > SELECT * FROM emp WHERE SUBSTR(ename, LENGTH(ename), 1) = 'N';
+ *   SQL > SELECT * FROM emp WHERE SUBSTR(ename, -1, 1) = 'N';
+ *   SQL > SELECT * FROM emp WHERE INSTR(ename, 'N') = LENGTH(ename);
+ *   SQL > SELECT * FROM emp WHERE INSTR(ename, 'N', LENGTH(ename), 1) = LENGTH(ename);
+ *   SQL > SELECT * FROM emp WHERE ename LIKE '%R';
+ *   
+ *   ex) 87년도에 입사한 직원을 검색하시오.
+ *   SQL > SELECT * FROM emp WHERE SUBSTR(hiredate, 3, 2) = '87';
+ *   SQL > SELECT * FROM emp WHERE SUBSTR(hiredate, 3, 2) = 87;
+ *   SQL > SELECT * FROM emp WHERE INSTR(hiredate, '87') = 3;
+ *   SQL > SELECT * FROM emp WHERE hiredate LIKE '%87%';
+ *   
+ *   ex) 직원중 이름이 5글자인 직원을 검색하되 소문자로 출력하시오.
+ *   SQL> SELECT empno, LOWER(ename) FROM emp WHERE LENGTH(ename) = 5;
+ *   
+ *  SYSDATE : 시스템의 현재 날짜
+ *   ex) 현재 날짜와 시간을 출력하시오.
+ *   SQL > SELECT SYSDATE FROM dual;
+ *  MONTHS_BETWEEN : 날짜와 날짜 사이의 개월을 계산
+ *   ex) 사원테이블에서 사원번호, 사원이름, 근무개월수를 출력하시오.
+ *   SQL > SELECT empno, ename, MONTHS_BETWEEN(SYSDATE, hiredate) FROM emp;
+ *  ADD_MONTHS : 날짜에 개월을 더한 날짜 계산
+ *   ex) 현재 날짜에서 3개월 후를 출력
+ *   SQL > SELECT ADD_MONTHS(SYSDATE, 3) FROM dual;
+ *  NEXT_DAY : 날짜후의 첫 요일의 날짜를 계산  ( 1 (일요일), 2 (월요일) ..)
+ *   ex) 다음 수요일의 날짜를 출력.
+ *   SQL > SELECT NEXT_DAY(SYSDATE, 4) FROM dual;
+ *  LAST_DAY : 월의 마지막 날짜를 계산
+ *   ex) 이번달의 마지막 날짜를 출력
+ *   SQL > SELECT LAST_DAY(SYSDATE) FROM dual;
+ *  ROUND : 날짜를 반올림
+ *  TRUNC : 날짜를 절삭
+ *  
+ * 형 변환 함수
+ *          <- TO_NUMBER             <- TO_CHAR
+ *   Number               Character               Date
+ *            TO_CHAR ->              TO_DATE ->
+ *            
+ * TO_DATE : 문자열을 날짜 형으로 변환
+ *  ex) 현재로부터 2006년 01월 01일 의 차이 일수를 출력
+ *  SQL > SELECT SYSDATE - TO_DATE('2016/01/01', 'YYYY/MM/DD') FROM dual;
+ *  
+ * TO_CHAR : 날짜나 숫자형을 문자로 변환
+ *  [형식] TO_CHAR(number | date, 'format')
+ *   * 형식
+ *    YYYY -> 년도 표현 (4자리)
+ *    YY -> 년도 표현 (2자리)
+ *    MM -> 월을 숫자로 표현
+ *    MON -> 월을 알파벳으로 표현
+ *    DAY -> 요일 표현
+ *    DY -> 요일을 약어로 표현
+ *    AM 또는 PM -> 오전 (AM), 오후 (PM) 시각 표시
+ *    A.M 또는 P.M -> 오전 (A.M), 오후 (P.M) 시각 표시
+ *    HH 또는 HH12 -> 시간 (1~12)
+ *    HH24 -> 24시간으로 표현 (0~23)
+ *    MI -> 분 표현
+ *    SS -> 초 표현
+ *    
+ *    ex) SELECT SYSDATE, TO_CHAR(SYSDATE, 'MM/DD/YY, HH24-MI-SS') FROM dual;
+ *  
+ *  NVL 함수 : NULL 값대신 특정 값으로 대치
+ *   ex) 사원테이블에서 사원번호, 사원이름, 직업, 상사번호 ( 없을시 CEO로 표시) 하여 출력.
+ *   SQL > SELECT empno, ename, job, NVL(TO_CHAR(mgr), 'CEO') FROM emp;
  */
 public class Sql {
 
