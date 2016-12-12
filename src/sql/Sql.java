@@ -268,6 +268,152 @@ package sql;
  *  NVL 함수 : NULL 값대신 특정 값으로 대치
  *   ex) 사원테이블에서 사원번호, 사원이름, 직업, 상사번호 ( 없을시 CEO로 표시) 하여 출력.
  *   SQL > SELECT empno, ename, job, NVL(TO_CHAR(mgr), 'CEO') FROM emp;
+ *   
+ *  DECODE 함수 : else if와 같은 기능
+ *   [형식] DECODE(데이터, 비교값, 참일때 출력할 데이터, 거짓일때 출력할 데이터)
+ *   ex) 부서번호에 따라 각 부서이름을 출력.
+ *   SQL > SELECT ename, deptno, DECODE(deptno, 10, 'ACCOUNTING', 
+ *   											20, 'RESEARCH', 
+ *   											30, 'SALES',
+ *   											40, 'OPERATION') AS "부서명"
+ *    	   FROM emp;
+ *   
+ *   ex) 직급에 따라 보너스를 준다고 가정할때 직급이 MANAGER이면 월급의 15%를 인상.
+ *                                              SALESMAN이면 월급의 5%를 인상. 
+ *   SQL > SELECT empno, ename, job, sal, DECODE(job, 'MANAGER', sal*1.15,
+ *   												  'SALESMAN', sal*1.05,
+ *   												  sal)
+ *         FROM emp ORDER BY job ASC;
+ *   						                                 
+ *  CASE 함수 : 조건에 따라 서로 다른 처리가 가능한 함수.
+ *   [형식] CASE 
+ *   		WHEN 조건1 THEN 결과1
+ *   		WHEN 조건2 THEN 결과2
+ *   		WHEN 조건3 THEN 결과3
+ *   	    ELSE 결과4
+ *          END
+ *   ex) 부서번호에 따라 각 부서이름을 출력.
+ *   SQL > SELECT ename, deptno,
+ *    		CASE 
+ *    			WHEN deptno = 10 THEN 'ACCOUNTING'
+ *   			WHEN deptno = 20 THEN 'RESEARCH'
+ *   			WHEN deptno = 30 THEN 'SALES'
+ *   			WHEN deptno = 40 THEN 'OPERRATIONS'
+ *   		END AS "부서명"
+ *   	   FROM emp;
+ *   ex) 직급에 따라 보너스를 준다고 가정할때 직급이 MANAGER이면 월급의 15%를 인상.
+ *                                              SALESMAN이면 월급의 5%를 인상. 
+ *   SQL > SELECT empno, ename, job, sal,
+ *    		CASE
+ *    			WHEN job = 'MANAGER' THEN sal*1.15
+ *    			WHEN job = 'SALESMAN' THEN sal*1.05
+ *    			ELSE sal
+ *    		END AS "인상 급여"
+ *    	   FROM emp ORDER BY job ASC;                                         
+ *  
+ *  그룹 함수 ( 기본적으로 NULL 이라는 값을 제외하고 계산된다. )
+ *   COUNT : 행의 개수를 카운트한다.
+ *   SUM : 해당 열의 총 행의 합계를 구한다.
+ *   AVG : 해당 열의 총 행의 평균을 구한다.
+ *   MIN : 해당 열의 총 행중에 최소값을 구한다.
+ *   MAX : 해당 열의 총 행중에 최대값을 구한다.
+ *   STDDEV : 해당 열의 표준편차를 반환.
+ *                                              
+ *   ex) 사원들이 각 몇년도에 입사했는지 조사하고, 입사년도에 따른 입사한 사원수를 출력하시오.                                           
+ *   SQL > SELECT COUNT(hiredate) AS "total",
+ *   			 SUM( DECODE( TO_CHAR(hiredate, "YYYY"), '1980', 1, 0) ) AS "1980",
+ *   			 COUNT( DECODE( TO_CHAR(hiredate, "YYYY"), '1981', 1, NULL) ) AS "1981,
+ *   			 SUM( DECODE( SUBSTR(hiredate, 1, 4), '1982', 1, 0)) AS "1982",
+ *   			 SUM(  CASE
+ *				    	WHEN SUBSTR(hiredate, 1, 4) = '1987' THEN 1
+ *						ELSE 0
+ *					   END ) AS "1987"
+ *		   FROM emp;
+ *
+ *  GROUP BY 절 
+ *   [형식] SELECT 컬럼명, 별칭, *
+ *   	    FROM 테이블명
+ *   		WHERE 조건(연산자)
+ *   		GROUP BY 컬럼명
+ *   SQL > SELECT ename, MAX(sal) FROM emp; -> 그룹함수와 싱글그룹 함수 끼리 출력 불가능.
+ *   SQL > SELECT deptno, AVG(sal) FROM emp GROUP BY deptno; -> 부서번호 끼리 그룹화 하여 각 그룹의 평균을 출력할 수 있다.
+ *     
+ *   HAVING 절 : GROUP BY 절에 의해 생성된 그룹을 대상으로 특정 조건에 맞는 그룹을 선택할 때 사용.
+ *     * SQL문의 동작 순서
+ *      FROM -> WHERE -> GROUP BY -> HAVING -> ORDER BY -> SELECT 
+ *   
+ *   ex) 평균급여가 2000이상인 부서를 출력
+ *   SQL > SELECT deptno, AVG(sal) 
+ *         FROM emp
+ *         GROUP BY deptno
+ *         HAVING AVG(sal) >= 2000;
+ *  
+ *  EQUI JOIN ( 같다 ) ( INNER JOIN )
+ *   ex) SELECT * FROM emp, dept WHERE emp.deptno = dept.deptno;
+ *   ex) SELECT empno, ename, deptno, dname FROM emp, deptno
+ *       WHERE emp.deptno = dept.deptno; -> 에러 : column ambiguously defined
+ *       -> deptno 컬럼이 두 테이블에도 존재하기 때문에 컬럼명에 대한 모호성으로 인해 오류 발생.
+ *   문제 해결 > 
+ *    SQL > SELECT e.empno, e.ename, d.deptno, d.dname FROM emp e, dept d -> e는 가상테이블. emp와 물리적으로 같은 테이블이 아니다.
+ *    		WHERE e.deptno = d.deptno;
+ *    
+ *  NON - EQUI JOIN ( INNER JOIN ) ( 범위로 조인을 할때 사용한다. )
+ *   ex) SELECT e.empno, e.ename, e.sal, s.losal, s.hisal, s.grade
+ *   	 FROM emp e, salgrade s
+ *   	 WHERE e.sal >= s.losal AND e.sal <= s.hisal;
+ *   
+ *   ex) SELECT e.empno, e.ename, e.sal, s.losal, s.hisal, s.grade
+ *   	 FROM emp e, salgrade s
+ *   	 WHERE e.sal BETWEEN s.losal AND s.hisal;
+ *   
+ *  SELF JOIN ( INNER JOIN ) ( 자기 자신과의 조인 )
+ *   ex) SELECT e1.empno, e1.ename, e1.mgr, e2.ename
+ *   	 FROM emp e1, emp e2
+ *       WHERE e1.mgr = e2.empno;
+ *       
+ *  OUTER JOIN 
+ *   ex) SELECT e1.empno, e1.ename, e1.mgr, e2.ename
+ *   	 FROM emp e1, emp 2
+ *   	 WHERE e1.mgr = e2.empno(+); -> NULL로 되어있는 부족한 부분을 채워 출력.
+ *       
+ *  JOIN 실습
+ *   ex) 사원들의 이름, 부서번호, 부서이름을 출력하기
+ *   SQL > SELECT e.ename, e.deptno, d.dname
+ *   	   FROM emp e, dept d
+ *   	   WHERE e.deptno = d.deptno;
+ *   
+ *   ex) 부서번호가 30번인 사원들의 이름, 직급, 부서번호, 부서위치를 출력
+ *   SQL > SELECT e.ename, e.job, e.deptno, d.loc
+ *         FROM emp e, dept d
+ *         WHERE e.deptno = d.deptno AND e.deptno = 30;
+ *         
+ *   ex) 0도 제외한 커미션을 받는 사원의 이름, 커미션, 부서이름, 부서위치를 출력
+ *   SQL > SELECT e.ename, e.comm, d.dname, d.loc
+ *   	   FROM emp e, dept d
+ *   	   WHERE e.deptno = d.deptno AND comm <> 0 AND comm IS NOT NULL ;
+ *   
+ *   ex) DALLAS 에서 근무하는 사원의 이름, 직급, 부서번호, 부서이름을 출력
+ *   SQL > SELECT e.ename, e.job, e.deptno, d.dname
+ *         FROM emp e, dept d
+ *         WHERE e.deptno = d.deptno AND d.loc = 'DALLAS';
+ *         
+ *   ex) 이름에 A가 들어가는 사원들의 이름과 부서이름을 출력
+ *   SQL > SELECT e.ename, d.dname
+ *         FROM emp e, dept d
+ *         WHERE e.deptno = d.deptno AND e.ename LIKE '%A%';
+ *         
+ *   ex) 사원이름과 직급, 급여, 급여등급을 출력
+ *   SQL > SELECT e.ename, e.job, e.sal, s.grade
+ *         FROM emp e, salgrade s
+ *         WHERE e.sal BETWEEN s.losal AND s.hisal;
+ *   
+ *   ex) 사원이름, 부서번호와 해당사원과 같은 부서에서 근무하는 사원을 출력 ( 단, 본인은 제외 )
+ *   SQL > SELECT e1.ename, e1.deptno, e2.ename
+ *         FROM emp e1, emp e2
+ *         WHERE e1.deptno = e2.deptno AND e1.ename <> e2.ename
+ *   
+ *   
+ *       
  */
 public class Sql {
 
