@@ -412,7 +412,144 @@ package sql;
  *         FROM emp e1, emp e2
  *         WHERE e1.deptno = e2.deptno AND e1.ename <> e2.ename
  *   
+ *  단일 행 서브 쿼리 : 속도를 빠르게 하기위해 (SELECT 절은 최소화 시켜야 한다.)
+ *   ex) SMITH 가 속한 부서의 모든 인원을 출력
+ *   SQL > SELECT deptno FROM emp WHERE ename = 'SMITH'
+ *   	   SELECT dname FROM dept WHERE deptno = 20;
+ *         두번의 쿼리를 한번으로 
+ *   	-> SELECT dname FROM dept WHERE deptno = (SELECT deptno FROM emp WHERE ename = 'SMITH');
+ *       
+ *   ex) 서브쿼리를 이용하여 조인
+ *   SQL > SELECT e.ename, a.deptno, a.dname
+ *   	   FROM emp e, (SELECT deptno, dname FROM dept WHERE deptno = 10) a
+ *   	   WHERE e.deptno = a.deptno;
  *   
+ *   ex) 전 사원의 평균 급여보다 높은 사원들을 출력
+ *   SQL > SELECT ename, sal FROM emp WHERE sal > (SELECT AVG(sal) FROM emp)
+ *       
+ *   ex) 부서번호가 10번인 사원중에 최대급여를 받는 사원과 동일한 급여를 받는 사원번호와 사원명을 출력.
+ *   SQL> SELECT empno, ename
+ *   	  FROM emp WHERE sal = (SELECT MAX(sal) FROM emp WHERE deptno = 10);
+ *       
+ *  다중 행 서브 쿼리 
+ *   IN : 메인 쿼리의 비교 조건 ( '=' 연산자로 비교할 경우 )이 서브 쿼리의 결과 중에서
+ *        하나라도 일치하면 참.
+ *   ANY, SOME : 메인 쿼리의 비교 조건이 서브 쿼리의 검색 결과와 하나 이상이 일치하면 참.
+ *   ALL : 메인 쿼리의 비교 조건이 서브 쿼리의 검색 결과와 모든 값이 일치하면 참.
+ *   EXIST : 메인 쿼리의 비교 조건이 서브 쿼리의 결과 중에서 만족하는 값이 하나라도 존재하면 참.
+ *       
+ *   ex) 'KING' 과 'BLAKE'가 속한 부서의 사원들을 출력.( 단, 본인은 제외 )
+ *   SELECT ename, hiredate, deptno
+ *   FROM emp
+ *   WHERE deptno IN ( SELECT deptno FROM emp WHERE ename = 'KING' OR ename = 'BLAKE')
+ *   AND (ename <> 'KING' AND ename != 'BLAKE')
+ *   -- AND ename NOT IN ('KING', 'BLAKE')
+ *        
+ *   ex) 3000이상의 급여를 받고있는 사원의 같은 부서에서 근무하는 사원 출력
+ *   SQL > SELECT ename, sal, deptno FROM emp
+ *   	   WHERE deptno IN ( SELECT DISTINCT deptno FROM emp WHERE sal >= 3000 );    
+ *   
+ *   ex) 30번 부서의 모든 사원의 모든 급여보다 높은 급여를 받는 사원 출력
+ *   SQL > SELECT ename, sal, deptno FROM emp
+ *         WHERE sal > ALL(SELECT sal FROM emp WHERE deptno = 30)
+ *   SQL > SELECT ename, sal, deptno FROM emp
+ *         WHERE sal > (SELECT MAX(sal) FROM emp WHERE deptno = 30)
+ *   
+ *   ex) 30번 부서의 모든 사원의 급여중 하나의 급여 보다 높은 사원 출력.
+ *   SQL > SELECT ename, sal, deptno FROM emp
+ *         WHERE sal > ANY(SELECT sal FROM emp WHERE deptno = 30)
+ *   SQL > SELECT ename, sal, deptno FROM emp
+ *         WHERE sal > (SELECT MIN(sal) FROM emp WHERE deptno = 30)
+ *         
+ *   ex) SCOTT의 급여와 동일하거나 더 많이 받는 사원명과 급여를 출력
+ *   SQL > SELECT ename, sal
+ *  	   FROM emp
+ *   	   WHERE sal >= (SELECT sal FROM emp WHERE ename = 'SCOTT');
+ *         
+ *   ex) 직급이 CLERK 인 사원의 부서의 부서번화와 부서명과 지역을 출력
+ *   SQL > SELECT deptno, dname, loc
+ *   	   FROM dept
+ *  	   WHERE deptno IN (SELECT DISTINCT deptno FROM emp WHERE job = 'CLERK');      
+ *   
+ *   ex) 이름에 T를 포함하고 있는 사원들과 같은 부서에서 근무하고 있는 사원의 사원번호와 이름을 출력
+ *   SQL > SELECT empno, ename
+ *  	   FROM emp
+ * 	       WHERE deptno IN (SELECT deptno FROM emp WHERE ename LIKE '%T%');
+ *   
+ *   ex) 부서위치가 'DALLAS' 인 모든 사원의 이름, 부서번호를 출력
+ *   SQL > SELECT ename, deptno
+ *   	   FROM emp
+ *   	   WHERE deptno = (SELECT deptno FROM dept WHERE loc = 'DALLAS');
+ *   
+ *   ex) SALES 부서의 모든 사원의 이름과 급여를 출력
+ *   SQL > SELECT ename, sal
+ *   	   FROM emp
+ *   	   WHERE deptno = (SELECT deptno FROM dept WHERE dname = 'SALES');
+ *   
+ *   ex) KING이 담당하고 있는 모든 사원의 이름과 급여를 출력
+ *   SQL > SELECT ename, sal
+ *   	   FROM emp
+ *   	   WHERE mgr = (SELECT empno FROM emp WHERE ename = 'KING');
+ *   
+ *   ex) 자신의 급여가 평균 급여보다 많고 이름에 S가 들어가는 사원과 동일한 부서에서
+ *       근무하는 모든 사원의 사원번호, 이름 및 급여를 출력하세요.
+ *   SQL > SELECT empno, sal
+ *         FROM emp
+ *         WHERE deptno IN ( SELECT DISTINCT deptno 
+ *         					 FROM emp 
+ *         					 WHERE sal > (SELECT AVG(sal) FROM emp) 
+ *         					 AND ename LIKE '%S%'); 
+ *   
+ *   테이블 생성 : CREATE 문 
+ *    [형식] CREATE TABLE 테이블명 (컬럼명 자료형)
+ *    ex) CREATE TABLE student(  
+ *       	name VARCHAR2(20) NOT NULL,
+ *          age NUMBER(3),
+ *          addr VARCHAR2(50),
+ *          tel VARCHAR2(20)
+ *        )
+ *    ex) CREATE TABLE emp2 AS SELECT * FROM emp -> AS를 이용하여 테이블 복사
+ *    ex) CREATE TABLE emp3 AS SELECT empno, ename, hiredate FROM emp;
+ *    ex) CREATE TABLE emp4 AS SELECT * FROM emp WHERE 1 = 0; -> 구조만 복사.
+ *    
+ *   테이블 수정 : ALTER 문
+ *    [형식] ALTER TABLE 테이블명 ADD(컬럼명 자료형)
+ *    [형식] ALTER TABLE 테이블명 MODIFY(컬럼명 자료형)
+ *    [형식] ALTER TABLE 테이블명 DROP COLUMN(컬럼명 자료형)
+ *    ex) ALTER TABLE emp5 ADD(email VARCHAR2(10))
+ *    ex) ALTER TABLE emp5 MODIFY(email VARCHAR2(50))
+ *    ex) ALTER TABLE emp5 DROP COLUMN email
+ *    
+ *   테이블 삭제 : DROP 문
+ *    [형식] DROP TABLE 테이블명 
+ *    ex) DROP TABLE emp2
+ *     *삭제 후 PURGE RECYCLEBIN 을 수행하여 쓰레기 값을 지운다.
+ *    
+ *   데이터 삽입 : INSERT 문
+ *    [형식] INSERT INTO 테이블명 [컬럼명] VALUES [값]
+ *     ex) INSERT INTO student(name, age, addr, tel)
+ *         VALUES('홍길동', 20, '서울', '[02-2222-1212')
+ *     ex) INSERT INTO student
+ *         VALUES('둘리', 30, '부천', '032-2222-2222')
+ *     ex) INSERT INTO student(name, tel)
+ *         VALUES('하니', '051-3333-4444');
+ *     ex) INSERT INTO student
+ *         VALUES('또치', NULL, '안산', NULL);
+ *   
+ *   데이터 수정 : UPDATE 문
+ *    [형식] UPDATE 테이블명 
+ *           SET 컬럼명 = 변경할 값
+ *           WHERE 조건
+ *    ex) UPDATE student
+ *        SET tel = '02-2222-1212'
+ *        WHERE name = '홍길동';      
+ *          
+ *   데이터 삭제 : DELETE 문
+ *    [형식] DELETE FROM 테이블명
+ *           WHERE 조건절;
+ *    ex) DELETE FROM student
+ *        WHERE name = '또치';
+ *          
  *       
  */
 public class Sql {
