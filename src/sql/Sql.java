@@ -550,6 +550,11 @@ package sql;
  *    ex) DELETE FROM student
  *        WHERE name = '¶ÇÄ¡';
  *          
+ *    
+ *     
+ *          
+ *          
+ *          
  *       
  */
 public class Sql {
