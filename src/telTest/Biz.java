@@ -48,7 +48,7 @@ public abstract class Biz {
 	/** 등록 메서드 */
 	public abstract boolean register(Object obj);
 	/** 수정 메서드 */
-	public abstract void modify(Object obj);
+	public abstract boolean modify(Object obj);
 	/** 삭제 메서드 */
 	public abstract void remove(Object obj); 
 	/** 조건 검색 메서드 */

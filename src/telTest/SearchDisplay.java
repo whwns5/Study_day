@@ -23,14 +23,17 @@ public class SearchDisplay extends Panel implements ActionListener {
 	
 	// 버튼 컴포넌트
 	Button p_north_p_south_bt_search;
+	
+	Biz biz;
 
-	public SearchDisplay() {
+	public SearchDisplay(Biz biz) {
+		this.biz = biz;
 		initDisplay();
 	}
 	
 	public void initDisplay() {
 		this.setLayout(new BorderLayout());
-		this.setFont(new Font("Courier New", Font.PLAIN, 70));
+		//this.setFont(new Font("Courier New", Font.PLAIN, 70));
 		// 상단
 		p_north = new Panel(new BorderLayout());
 		// 상단 - 상단
@@ -54,7 +57,7 @@ public class SearchDisplay extends Panel implements ActionListener {
 		// 중단
 		p_center = new Panel(new BorderLayout());
 		p_center_ta_result = new TextArea();
-		p_center_ta_result.setFont(new Font("Courier New", Font.PLAIN, 45));
+		//p_center_ta_result.setFont(new Font("Courier New", Font.PLAIN, 45));
 		
 		p_center.add(p_center_ta_result, BorderLayout.CENTER);
 		//////////////////////////////////
@@ -68,7 +71,7 @@ public class SearchDisplay extends Panel implements ActionListener {
 	public void getTel(){
 		StringBuffer sb = new StringBuffer();
 		
-		Biz biz = new TelTestBiz();
+		
 		ArrayList<Object> result_tel_List = new ArrayList<Object>();
 		
 		result_tel_List = biz.get(new TelVo(p_north_p_south_tf_name.getText()));
@@ -86,7 +89,6 @@ public class SearchDisplay extends Panel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		Object obj = e.getSource();
 		if(obj == p_north_p_south_bt_search){ // 검색 버튼 이면
 			getTel(); // 이름 검색 처리 메서드

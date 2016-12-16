@@ -43,7 +43,23 @@ public class TelTestDao extends Dao{
 	@Override
 	public void update(Connection con, Object obj) throws Exception {
 		// TODO Auto-generated method stub
-
+		TelVo input_tel_data = (TelVo) obj;
+		
+		try{
+			pstmt = null;
+			
+			pstmt = con.prepareStatement(Sql.TEL_UPDATE);
+			pstmt.setInt(1, input_tel_data.getAge());
+			pstmt.setString(2, input_tel_data.getAddr());
+			pstmt.setString(3, input_tel_data.getTel());
+			pstmt.setString(4, input_tel_data.getName());
+			
+			pstmt.executeUpdate();
+		}catch(Exception e){
+			throw e;
+		}finally {
+			super.close(pstmt);
+		}
 	}
 
 	@Override

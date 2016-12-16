@@ -36,13 +36,16 @@ public class RegistDisplay extends Panel implements ActionListener {
 	// 버튼 컴포넌트
 	Button p_south_bt_reigst;
 	
-	public RegistDisplay(){
+	Biz biz;
+	
+	public RegistDisplay(Biz biz){
+		this.biz = biz;
 		initDisplay();
 	}
 	
 	public void initDisplay(){
 		this.setLayout(new BorderLayout(0, 0));
-		this.setFont(new Font("Courier New", Font.PLAIN, 70));
+		//this.setFont(new Font("Courier New", Font.PLAIN, 70));
 		// 상단
 		lb_title = new Label("전화번호 등록", Label.CENTER);
 		
@@ -123,8 +126,7 @@ public class RegistDisplay extends Panel implements ActionListener {
 		}
 
 		TelVo input_user_data = new TelVo(name, age, addr, tel);
-		Biz biz = new TelTestBiz();
-
+	
 		if(biz.register(input_user_data)){ // 등록 처리후 true 면 성공 false 면 실패
 			p_south_lb_resultMessage.setText("메세지 : " + name + " 님이 등록이 되었습니다.");
 			initTextField(); // 텍스트 필드 초기화 메서드

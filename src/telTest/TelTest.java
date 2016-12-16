@@ -14,13 +14,22 @@ public class TelTest extends Frame implements ActionListener{
 	Menu m;
 	MenuItem mi_regist; // 등록 메뉴
 	MenuItem mi_search; // 검색 메뉴
+	MenuItem mi_update; // 수정 메뉴
 	MenuItem mi_allView; // 조회 메뉴
 	MenuItem mi_exit; // 종료 메뉴
 
+	Biz biz;
+	
 	public TelTest(){
+		initDriver();
 		initScreen(); // 기본 화면 위치 및 사이즈 조절 메서드
 		initMenu(); // 메뉴 바 생성 및 초기화 메서드
 		initDisplay(); // 화면 구성 생성 및 초기화 메서드
+	}
+	
+	/** 드라이버 객체 초기화 */
+	public void initDriver(){
+		biz = new TelTestBiz();
 	}
 	
 	/** 기본 화면 위치 및 사이즈 조절 메서드 */
@@ -32,9 +41,9 @@ public class TelTest extends Frame implements ActionListener{
 		this.displayX = (int) dm.getWidth();
 		this.displayY = (int) dm.getHeight();
 
-		this.setSize(displayX, displayY);
-		//this.setSize(450, 220);
-		//this.setLocation(displayX / 2 - this.getWidth() / 2, displayY / 2 - this.getHeight() / 2);
+		//this.setSize(displayX, displayY);
+		this.setSize(450, 300);
+		this.setLocation(displayX / 2 - this.getWidth() / 2, displayY / 2 - this.getHeight() / 2);
 		this.setVisible(true);
 	}
 
@@ -44,12 +53,14 @@ public class TelTest extends Frame implements ActionListener{
 		m = new Menu("메뉴");
 		mi_regist = new MenuItem("전화번호 등록");
 		mi_search = new MenuItem("전화번호 검색");
+		mi_update = new MenuItem("전화번호 수정");
 		mi_allView = new MenuItem("모든 전화번호 보기");
 		mi_exit = new MenuItem("종료");
 
 		// 액션리스너 등록
 		mi_regist.addActionListener(this);
 		mi_search.addActionListener(this);
+		mi_update.addActionListener(this);
 		mi_allView.addActionListener(this);
 		mi_exit.addActionListener(this);
 		
@@ -58,6 +69,7 @@ public class TelTest extends Frame implements ActionListener{
 		mb.add(m);
 		m.add(mi_regist);
 		m.add(mi_search);
+		m.add(mi_update);
 		m.add(mi_allView);
 		m.addSeparator();
 		m.add(mi_exit);
@@ -73,11 +85,13 @@ public class TelTest extends Frame implements ActionListener{
 	public void changeDisplay(Object obj) {
 		this.removeAll(); // Frame 에서 전체 컴포넌트를 삭제.
 		if (obj == mi_regist) { // 등록 화면으로 전환이면
-			this.add(new RegistDisplay(), BorderLayout.CENTER); // 등록 화면 Panel 부착
+			this.add(new RegistDisplay(biz), BorderLayout.CENTER); // 등록 화면 Panel 부착													
 		} else if (obj == mi_search) { // 검색 화면으로 전환이면
-			this.add(new SearchDisplay(), BorderLayout.CENTER); // 검색 화면 Panel 부착
+			this.add(new SearchDisplay(biz), BorderLayout.CENTER); // 검색 화면 Panel 부착												
+		} else if (obj == mi_update) { // 수정 화면으로 전환이면
+			this.add(new UpdateDisplay(biz), BorderLayout.CENTER); // 수정 화면 Panel 부착													
 		} else if (obj == mi_allView) { // 전체보기 화면으로 전환이면
-			this.add(new AllViewDisplay(), BorderLayout.CENTER); // 조회 화면 Panel 부착
+			this.add(new AllViewDisplay(biz), BorderLayout.CENTER); // 조회 화면 Panel 부착														
 		}
 	}
 	
@@ -92,7 +106,7 @@ public class TelTest extends Frame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 
-		if (obj == mi_regist || obj == mi_search || obj == mi_allView) { // 등록, 검색, 조회 메뉴일때
+		if (obj == mi_regist || obj == mi_search || obj == mi_allView || obj == mi_update) { // 등록, 검색, 수정, 조회 메뉴일때
 			changeDisplay(obj); // 화면 전환 메서드
 		} else if (obj == mi_exit) {
 			System.exit(0);

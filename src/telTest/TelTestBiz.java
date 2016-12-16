@@ -16,8 +16,6 @@ public class TelTestBiz extends Biz{
 	/** 전화번호 등록 */
 	@Override
 	public boolean register(Object obj) {
-		// TODO Auto-generated method stub
-		
 		Connection con = super.getConnection();
 		try {
 			telTest_Dao.insert(con, obj);
@@ -43,14 +41,36 @@ public class TelTestBiz extends Biz{
 	}
 
 	@Override
-	public void modify(Object obj) {
+	public boolean modify(Object obj) {
 		// TODO Auto-generated method stub
+		Connection con = super.getConnection();
+		try {
+			telTest_Dao.update(con, obj);
+			con.commit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Tel Update Error");
+			System.out.println("RollBack");
+			try {
+				con.rollback();
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			return false;
+		} finally {
+			super.close(con);
+		}
 		
+		return true;
 	}
 
 	@Override
 	public void remove(Object obj) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
