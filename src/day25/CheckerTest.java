@@ -27,7 +27,7 @@ public class CheckerTest extends Frame implements ActionListener{
 	Label lb_reset_title, lb_reset_room, lb_reset_msg;
 	TextField tf_reset_room;
 	Button bt_reset_result;
-	
+	Label a;
 	/** 예약 현황보기 컴포넌트 */
 	Label lb_list_title;
 	TextArea ta_list_content;
