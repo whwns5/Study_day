@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+a:LINK {
+	color: black;
+	font-size: 12px;
+	text-decoration: none; /* 밑줄긋기 제거 */
+}
+
+a:VISITED {
+	color: black;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+a:HOVER {
+	color: red;
+	font-size: 14px;
+	text-decoration: underline; /* 밑줄긋기 */
+}
