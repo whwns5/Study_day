@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.main_div{
+		margin: 0px;
+		padding: 0px;
+	}
+	.tb_regist{
+		margin: 0px;
+		padding: 0px;
+		font-size: 16px;
+		font-family: '돋음';
+		border-spacing: 20px;
+		border-collapse:collapse;
+		border-top: 3px double #ff00cc;
+		border-bottom: 3px double #ff00cc;
+		
+		width: 500px;
+		height: 150px;
+		text-align: left;
+	}
+	.tb_regist caption{
+		font-size: 50px;
+		font-weight: bold;
+		letter-spacing: 15px;
+		height: 100px;
+	}
+	
+	.tb_regist tr{
+		/*
+		border: 5px dotted red;
+		*/
+	}
+	
+	.tb_regist th{
+		background-color: #ffccff;
+	}
+	
+	.tb_regist input{
+		background-color: #ffccff;
+		color: #ff00cc;
+		font-size: 18px;
+	}
+	
+	.firstRow, .secondRow {
+		border-bottom: 1px dotted #ff00cc;
+	}
+	
+	
+</style>
+</head>
+<body>
+	<div class = main_div align="center">
+	
+		<table class = tb_regist>
+			<caption>회원가입</caption>
+			<tbody>
+			<tr>
+				<th class = firstRow>*아이디</th>
+				<td class = firstRow><input type="text"></td>
+			</tr>
+			<tr>
+				<th class = secondRow>*비밀번호</th>
+				<td class = secondRow><input type="text"></td>
+			</tr>
+			<tr>
+				<th >*연락처</th>
+				<td ><input type="text"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	body{
+		margin: 0px auto; /* auto는 내 모니터의 정 중앙값을 의미 */
+	}
+	h1{
+		text-align: center;
+	}
+	.box{
+		margin: 0px auto;
+		width: 250px;
+		border-top: 3px double blue;
+		border-bottom: 3px double blue;
+		border-spacing: 0px;
+	}
+	.cell1{
+		background: #66ffff;
+		font-size: 12px;
+		border-right: 1px dotted blue;
+		border-bottom: 1px dotted blue;
+	}
+	.cell2{
+		background: #66ffff;
+		font-size: 12px;
+		border-right: 1px dotted blue;
+	}
+	.cell3{
+		
+		font-size: 12px;
+		border-bottom: 1px dotted blue;
+	}
+	.cell4{
+		font-size: 12px;
+	}
+
+	.box2{
+		border:1px soild gray;
+		font-size: 12px;
+		color: darkblue;
+		background: #99ffff;
+	}
+</style>
+</head>
+<body>
+	<h1>회 원 가 입</h1>
+	<table class="box">
+		<tr>
+			<td class="cell1">*ID</td>
+			<td class="cell3"><input type="text" name="id" class="box2"></td>
+		</tr>
+		<tr>
+			<td class="cell1">*Password</td>
+			<td class="cell3"><input type="password" name="pwd" class="box2"></td>
+		</tr>
+		<tr>
+			<td class="cell2">*Telephone</td>
+			<td class="cell4"><input type="text" name="tel" class="box2"></td>
+		</tr>
+	</table>
+</body>
+</html>

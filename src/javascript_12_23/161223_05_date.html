@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var now = new Date();
+	/* Date 클래스의 주요메서드
+	   1. getFullYear();
+	   2. getMonth();
+	   3. getDate();
+	   4. getDay();
+	   5. getHours();
+	   6. getMinutes();
+	   7. getSeconds();
+	*/
+	
+	var year = now.getFullYear();
+	var month = now.getMonth() + 1;
+	var date = now.getDate();
+	var day = now.getDay();
+	
+	var week = new Array(7);
+	week[0] = '일';
+	week[1] = '월';
+	week[2] = '화';
+	week[3] = '수';
+	week[4] = '목';
+	week[5] = '금';
+	week[6] = '토';
+	
+	/*
+	switch (day) {
+	case 0:
+		day = '일';
+		break;
+	case 1:
+		day = '월';
+		break;
+	case 2:
+		day = '화';
+		break;
+	case 3:
+		day = '수';
+		break;
+	case 4:
+		day = '목';
+		break;
+	case 5:
+		day = '금';
+		break;
+	case 6:
+	    day = '토';
+	    break;
+	}
+	*/
+
+	
+	document.write('<h2>' + year + '년 ' + month + '월 ' + date + '일 ' + week[day]
+			+ '요일' + '</h2>');
+</script>
+</head>
+<body>
+	<select>
+		<script>
+			var docuStr = '';
+	
+			for(var i = 1900; i <= 2016 ; i++){
+				docuStr += '<option ';
+				if(i == year){
+					docuStr += 'selected="selected"';
+				}
+				docuStr += ' value="' + i + '">' + i + '</option>';
+			}
+			
+			document.write(docuStr);
+		</script>
+	</select>
+	<select>
+		<script>
+			var docuStr = '';
+			
+			for(var i = 1; i <= 12 ; i++){
+				docuStr += '<option ';
+				docuStr += ' value="' + i + '" ' + (i == month? 'selected' : ' ') + ' >' + i + '</option>';
+			}
+			
+			document.write(docuStr);
+		</script>
+	</select>
+	<select>
+		<script>
+			var docuStr = '';
+			
+			for(var i = 1; i <= 31 ; i++){
+				docuStr += '<option ';
+				if(i == date){
+					docuStr += 'selected="selected"';
+				}
+				docuStr += ' value="' + i + '">' + i + '</option>';
+			}
+			
+			document.write(docuStr);
+		</script>
+	</select>
+	<select>
+		<script>
+			var docuStr = '';
+			
+			for(var i = 0; i <= 6 ; i++){
+				docuStr += '<option ';
+				
+				switch (i) {
+				case 0:
+					daystr = '일';
+					break;
+				case 1:
+					daystr = '월';
+					break;
+				case 2:
+					daystr = '화';
+					break;
+				case 3:
+					daystr = '수';
+					break;
+				case 4:
+					daystr = '목';
+					break;
+				case 5:
+					daystr = '금';
+					break;
+				case 6:
+					daystr = '토';
+				    break;
+				}
+				
+				if(daystr == day){
+					docuStr += 'selected="selected"';
+				}
+				
+				
+				
+				docuStr += ' value="' + daystr + '">' + daystr + '</option>';
+			}
+			
+			document.write(docuStr);
+		</script>
+	</select>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+    /*
+	var orderList = '<table>'+
+						'<tr>'+
+							'<th colspan="2">주문내역</th>'+
+						'</tr>'+
+					'</table>';
+	*/
+	
+	function menuClick(menu, price){
+		window.alert('주문내역' + '\n 주문메뉴 : ' + menu + '\n 가격 : ' + price + '\n 주문 감사합니다.');
+	}
+	
+	
+</script>
+</head>
+<body>
+<table>
+	<tr>
+		<td><input type="button" value = "짜장" onclick="menuClick('짜장', 3500)"></td>
+		<td><input type="button" value = "짬뽕" onclick="menuClick('짬뽕', 5000)"></td>
+		<td><input type="button" value = "탕수육" onclick="menuClick('탕수육', 12000)"></td>
+		<td><input type="button" value = "팔보채" onclick="menuClick('팔보채', 20000)"></td>
+	</tr>
+</table>
+	
+	
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function show(){
+	// 1. 사용자가 입력한 데이터 회수
+	var mon = document.fm.month.value;
+	
+	mon = parseInt(mon);
+	
+	switch(mon){
+	case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+		days = 31;
+		break;
+	case 4: case 6: case 9: case 11:
+		days = 30;
+		break;
+	case 2: 
+		days = 28; // javascript에서 지역변수는 함수안에서 사는 변수
+		break;
+	default:
+		days = '잘못된 달을 입력 하셨습니다.';
+		break;
+	}
+	
+	window.alert(mon + '달의 총 일수' + days);
+}
+</script>
+
+</head>
+<body>
+	<h2>해당 달의 일수 구하기</h2>
+	<form name="fm">
+		달 입력 : <input type="text" name="month"><input type="button" value="총일수확인" onclick="show()">
+	</form>
+</body>
+</html>

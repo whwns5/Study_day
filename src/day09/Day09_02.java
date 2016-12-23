@@ -60,6 +60,10 @@ public class Day09_02 {
 			System.out.println("arr3[" + i + "] = " + arr3[i]);
 		}
 		
+		for (int i : arr3) {
+			
+		}
+		
 		for (int j : arr3) {
 			System.out.println(j);
 		}

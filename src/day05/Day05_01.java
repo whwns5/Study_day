@@ -24,7 +24,7 @@ public class Day05_01 {
 		System.out.print("이\r름 : " + name + "\n"); // \r -> 커서를 맨앞으로
 		
 		System.out.println("저의 이름은 \"홍길동\" 입니다."); // \" , \' -> 문자열안에 넣어 사용 가능
-		
+	
 		
 		System.out.printf("이름 : %s \n나이 : %d", name , age); // %s -> 문자열 형식  %d -> 숫자형 서식
 		

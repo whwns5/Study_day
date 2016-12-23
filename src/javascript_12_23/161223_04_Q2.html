@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>이쁜 사진들..</h2>
+	<table>
+		<tr>
+			<script>
+				for(var i = 1 ; i <= 16 ; i++){
+					document.write('<td>');
+					document.write('<img width="120" height="120" src="E:\img\\' + i + '.jpg">');
+					document.write('</td>');
+					
+					if(i % 4 == 0 && i != 16){ 
+						document.write('</tr><tr>');
+					}
+				}
+				
+				
+			</script>
+		</tr>
+	</table>
+</body>
+</html>

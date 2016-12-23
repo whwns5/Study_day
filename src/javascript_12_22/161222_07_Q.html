@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#main_div{
+		padding : 10px;
+	}	
+	#scoreTable{
+		margin: 0px auto;
+		text-align: center;
+	}
+</style>
+<script type="text/javascript">
+	function resultView() {
+		var resultStr = '시험 결과';
+		
+		var kor = parseInt(document.fm.input_score_kor.value);
+		var eng = parseInt(document.fm.input_score_eng.value);
+		var math = parseInt(document.fm.input_socre_math.value);
+		
+		var sum = kor + eng + math;
+		resultStr += '\n총점 : ' + sum;
+		
+		var avg = sum/3; // 변수의 모호성 때문에 정수였던 값이 실수로 나와버린다.
+		resultStr += '\n평균 : ' + avg.toFixed(2);
+		
+		var grade;
+		
+		switch( parseInt(avg/10) ){
+		case 10: case 9:
+		 grade = 'A';
+		 break;
+		case 8:
+		 grade = 'B';
+		 break;
+		case 7:
+		 grade = 'C';
+		 break;
+		case 6:
+		 grade = 'D';
+		 break;
+		default :
+		 grade = 'F';
+		 break;
+		}
+		resultStr += '\n등급 : ' + grade;
+		
+		var result;
+		if(kor > 40 && eng > 40 && math > 40 && avg >= 60){
+			result = '합격';
+		}else{
+			result = '불합격';
+		}
+		resultStr += '\n결과 : ' + result;
+		
+		window.alert(resultStr);
+    }
+</script>
+</head>
+<body>
+	<div id = "main_div">
+	<form name="fm">
+	<table name = "scoreTable" id = "scoreTable">
+		<tr>
+			<th colspan="2">성적결과조회</th>
+		</tr>
+		<tr>
+			<th>국어</th>
+			<td><input type="text" name="input_score_kor"></td>
+		</tr>
+		<tr>
+			<th>영어</th>
+			<td><input type="text" name="input_score_eng"></td>
+		</tr>
+		<tr>
+			<th>수학</th>
+			<td><input type="text" name="input_socre_math"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="button" value="조회" onclick="resultView()">
+				<input type="reset" value="다시">
+			</td>
+		</tr>
+	</table>
+	</form>
+	</div>
+</body>
+</html>
