@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function timeDisplay(){
+		var now = new Date();
+		var h = now.getHours();
+		var m = now.getMinutes();
+		var s = now.getSeconds();
+		
+		var msg = h + '시 ' + m + '분 ' + s + '초 ';
+		
+		document.fm.timer.value = msg;
+		
+		//timeDisplay();
+		window.setTimeout('timeDisplay()', 1000); // 매개변수 -> 내가 호출하고 싶은 함수(문자열), 초
+												  // 해당 메소드는 끝나면서 메소드를 호출하기때문에 메모리 x
+	}
+</script>
+</head>
+<body onload="timeDisplay()">
+	<form name = "fm">
+		현재시간 : <input type="text" name="timer" style="border: 1px solid gray;width: 150px">
+
+	</form>
+</body>
+</html>

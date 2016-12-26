@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var noticeStr = '지각, 결석을 하지 맙시다....';
+	var noticeStrleng = noticeStr.length;
+	var count = 0;
+	
+	function showNotice(){
+		var tempStr = '';
+	
+		for(var i = 0 ; i < noticeStrleng; i++){
+			if(i == count){
+				tempStr += noticeStr.charAt(count);
+			}else{
+				tempStr += '  ';
+			}
+		}
+		
+		document.fm.notice.value = tempStr;
+		
+		count++;
+		if(count == noticeStrleng){
+			count = 0;
+		}
+		
+		window.setTimeout('showNotice()', 200);
+		
+	}
+	
+</script>
+</head>
+<body onload="showNotice()">
+	<form name="fm">
+		공지사항 : <input type="text" name="notice" size="30">
+	</form>
+</body>
+</html>
