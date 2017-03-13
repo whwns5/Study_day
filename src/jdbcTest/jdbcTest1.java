@@ -88,6 +88,7 @@ public class jdbcTest1 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
+			System.out.println("test");
 			System.out.println("DB Driver Connect Start!");
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("DB Driver Loading Success!");

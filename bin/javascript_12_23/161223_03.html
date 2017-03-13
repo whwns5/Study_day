@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	for(var i = 1 ; i <= 7 ; i++){
+		document.write('<font size="' +  i + '">텍스트 문자열</font><br>');
+	}
+	
+	
+
+</script>
+</head>
+<body>
+	<script type="text/javascript">
+		document.write('<select name="year">');
+		for(var i = 1960 ; i <= 2016 ; i++){
+			document.write('<option value="'+i+'">' + i + '</option>');
+		}
+		document.write('</select>')	
+	</script>년
+	
+	<select name="month">
+		<script>
+			for(var i = 1; i <= 12 ; i++){
+				document.write('<option value="'+i+'">' + i + '</option>');
+			}
+		</script>
+	</select>월
+	
+	<select>
+		<script>
+			for(var i = 1; i <= 31 ; i++){
+				document.write('<option value="'+i+'">' + i + '</option>');
+			}
+		</script>
+	</select>일
+	
+</body>
+</html>

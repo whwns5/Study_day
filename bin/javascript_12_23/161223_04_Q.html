@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<script>
+			var docuemntStr = '';
+
+			docuemntStr += '<tr>';
+			for(var i = 1 ; i <= 16 ; i++){
+				docuemntStr += '<td>' + '<img width="120" height="120" src="E:\img\\' + i + '.jpg">' + '</td>';
+				
+				if(i % 4 == 0){
+					docuemntStr += '</tr>';
+					if(i != 16){
+						docuemntStr += '<tr>';
+					}
+				}
+			}
+
+			document.write(docuemntStr);
+		</script>
+	</table>
+</body>
+</html>

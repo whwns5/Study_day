@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function autoWrite(){
+		// 1. 사용자가 입력한 값 가져오기.
+		var fulladdr = document.fm.fulladdr.value;
+		
+		// 2. 필요한 값 추출하기
+		var zip1 = fulladdr.substring(1, 4);
+		var zip2 = fulladdr.substring(5, 8);
+		var etc = fulladdr.substring(10);
+		
+		// 3. 부모창에게 값 넘기기
+		opener.document.join.zip1.value = zip1;
+		opener.document.join.zip2.value = zip2;
+		opener.document.join.address.value = etc;
+	
+		// 4. 자신 브라우저 닫기
+		window.self.close();
+	}
+	
+</script>
+</head>
+<body>
+	<form name = "fm">
+		주소입력 : <input type="text" name="fulladdr" size="40"><br>
+					<input type="button" value="주소확인" onclick="autoWrite();">
+	</form>
+</body>
+</html>

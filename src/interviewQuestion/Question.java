@@ -30,6 +30,12 @@ package interviewQuestion;
  *  다르다. 자바와 비슷한 문법을 제공해주지만 전혀 다른 언어이다.
  *  ex) 오버로딩이 불가능 하다.
  * 
+ * 
+ * 디자인 패턴이란?
+ * 
+ * mvc패턴이란?
+ * 
+ * 
  */
 public class Question {
 

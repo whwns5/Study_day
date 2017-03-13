@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	var msg = '지각, 결석을 하지 맙시다....';
+	var leng = msg.length;
+
+	function show(){
+		document.fm.notice.value = msg;
+		
+		msg = msg.substring(1, leng) + msg.charAt(0);
+		
+		window.setTimeout('show()', 200);
+	}
+</script>
+</head>
+<body onload="show()">
+	<form name="fm">
+		공지사항 : <input type="text" name="notice" size="30">
+	</form>
+</body>
+</html>

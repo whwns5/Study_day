@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function allSelect(){
+		for(var i = 0 ; i < document.cb_hobby.length ; i++){
+			document.cb_hobby[i].checked = true;
+		}
+	}
+	
+	
+	function allClear(){
+		for(var i = 0 ; i < document.fm.cb_hobby.length ; i++){
+			document.fm.cb_hobby[i].checked = false;
+		}
+	}
+	
+	function selectResult(){
+
+		var resultStr = '당신이 선택한 취미는 \n';
+		
+		for(var i = 0 ; i < document.fm.cb_hobby.length ; i++){
+			if(document.fm.cb_hobby[i].checked == true){
+				resultStr += document.fm.cb_hobby[i].value + ' ';
+			}
+		}
+		resultStr += '\n 입니다.'
+		
+		window.alert(resultStr);
+	}
+</script>
+</head>
+<body>
+	<h1>취미 선택하기</h1>
+
+		취미 : <input type="checkbox" name="cb_hobby" value="공부">공부&nbsp;&nbsp;
+				<input type="checkbox" name="cb_hobby" value="독서">독서&nbsp;&nbsp;
+				<input type="checkbox" name="cb_hobby" value="게임">게임&nbsp;&nbsp;
+				<input type="checkbox" name="cb_hobby" value="운동">운동&nbsp;&nbsp;
+				<input type="checkbox" name="cb_hobby" value="연애">연애&nbsp;&nbsp;<br>
+				<input type="button" name="bt_allSelect" value="모두 선택" onclick="allSelect()">&nbsp;
+				<input type="button" name="bt_allClear" value="모두 해제" onclick="allClear()">&nbsp;
+				<input type="button" name="bt_selectResult" value="선택 확인" onclick="selectResult()">&nbsp;
+
+</body>
+</html>

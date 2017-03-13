@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var strArray = new Array();
+	var docString = '';
+	var tempStr = '';
+	
+	strArray[0] = '지';
+	strArray[1] = '각';
+	strArray[2] = ',';
+	strArray[3] = ' ';
+	strArray[4] = '결';
+	strArray[5] = '석';
+	strArray[6] = '을';
+	strArray[7] = ' ';
+	strArray[8] = '하';
+	strArray[9] = '지';
+	strArray[10] = ' ';
+	strArray[11] = '맙';
+	strArray[12] = '시';
+	strArray[13] = '다';
+	strArray[14] = '.';
+	strArray[15] = '.';
+	strArray[16] = '.';
+	
+	//strArray[0] = '1';
+	//strArray[1] = '2';
+	//strArray[2] = '3';
+	//strArray[3] = '4';
+	//strArray[4] = '5';
+
+	// 12345
+	// 23441
+	// 34442
+	
+	
+	function showString(){
+		
+		docString = '';
+		for(var i = 0 ; i < strArray.length ; i++){
+			docString += strArray[i];
+		}
+
+		document.fm.input_Text.value = docString;
+		
+		tempStr = '';
+		tempStr = strArray[0];
+		for(var i = 1 ; i < strArray.length ; i++){
+			
+			strArray[i-1] = strArray[i];
+		}
+		strArray[strArray.length-1] = tempStr; 
+		
+		window.setTimeout('showString()', 500);
+	}
+	
+</script>
+</head>
+<body onload = "showString()">
+	<form name = "fm">
+		공지사항 : <input type="text" name="input_Text">
+	</form>
+</body>
+</html>

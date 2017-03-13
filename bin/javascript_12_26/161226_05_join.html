@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function findAddr(){
+		window.open('161226_05_findAddress.html','findAddress','width=450,height=200');	
+		
+	}
+</script>
+</head>
+<body>
+	<h2>가상 회원 가입 창(의일부)</h2>
+	<form name="join">
+		우편번호 : <input type="text" name="zip1" size="6" readonly="readonly"> -
+				  <input type="text" name="zip2" size="6" readonly="readonly">
+				  <a href="javascript:findAddr()">[주소 찾기]</a><br>
+		기본주소 : <input type="text" name="address" size="20" readonly="readonly"><br>
+		상세주소 : <input type="text" name="address2" size="20">
+	</form>
+</body>
+</html>
